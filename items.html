@@ -29,7 +29,7 @@
             overflow: hidden;
         }
         .item img {
-            max-width: 200px; /* Keeps the image smaller */
+            max-width: 200px;
             height: auto;
             border-radius: 10px;
             margin-right: 20px;
@@ -54,7 +54,23 @@
             font-weight: bold;
             color: #007BFF;
         }
-        /* Responsive Design */
+        .total-prices {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .total-prices h3 {
+            margin: 0;
+            color: #333;
+        }
+        .total-prices p {
+            margin: 5px 0;
+            font-size: 1.2em;
+            color: #555;
+        }
         @media (max-width: 768px) {
             .item {
                 flex-direction: column;
@@ -70,18 +86,52 @@
 </head>
 <body>
     <div class="container">
-        <div class="item">
-            <img src="https://github.com/CoopaTroop22/ThriftFinds/raw/main/item1.jpg" alt="Star Wars VHS">
+        <!-- Example Item -->
+        <div class="item" data-purchase-price="10" data-selling-price="30">
+            <img src="https://github.com/CoopaTroop22/ThriftFinds/raw/main/item.jpg" alt="Star Wars VHS">
             <div class="item-details">
-                <h2>Star Wars VHS</h2>
+                <h2>Star Wars II VHS</h2>
                 <p><strong>Description:</strong> Star Wars Attack of the Clones VHS</p>
                 <p><span class="price">Purchase Price: $1.00</span></p>
                 <p><span class="price">Selling Price: $10.00</span></p>
                 <p><strong>Date of Purchase:</strong> August 29, 2024</p>
-                <p><strong>Notes:</strong>Good Condition</p>
+                <p><strong>Notes:</strong> Okay Condition</p>
             </div>
         </div>
         <!-- Add more items as needed -->
+
+        <!-- Total Prices Section -->
+        <div class="total-prices">
+            <h3>Total Prices</h3>
+            <p id="total-purchase-price">Total Purchase Price: $0.00</p>
+            <p id="total-selling-price">Total Selling Price: $0.00</p>
+        </div>
     </div>
+
+    <script>
+        function calculateTotalPrices() {
+            let totalPurchasePrice = 0;
+            let totalSellingPrice = 0;
+
+            // Select all item elements
+            const items = document.querySelectorAll('.item');
+
+            // Loop through each item and sum up the prices
+            items.forEach(item => {
+                const purchasePrice = parseFloat(item.getAttribute('data-purchase-price'));
+                const sellingPrice = parseFloat(item.getAttribute('data-selling-price'));
+
+                totalPurchasePrice += purchasePrice;
+                totalSellingPrice += sellingPrice;
+            });
+
+            // Update the total prices in the HTML
+            document.getElementById('total-purchase-price').textContent = `Total Purchase Price: $${totalPurchasePrice.toFixed(2)}`;
+            document.getElementById('total-selling-price').textContent = `Total Selling Price: $${totalSellingPrice.toFixed(2)}`;
+        }
+
+        // Call the function when the page loads
+        window.onload = calculateTotalPrices;
+    </script>
 </body>
 </html>
